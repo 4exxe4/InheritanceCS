@@ -12,7 +12,7 @@ namespace Academy
         public string FirstName { get; set; }
         public int Age { get; set; }
 
-        public Human (string lastName, string firstName, int age)
+        public Human(string lastName, string firstName, int age)
         {
             LastName = lastName;
             FirstName = firstName;
@@ -26,7 +26,7 @@ namespace Academy
             this.Age = other.Age;
             Console.WriteLine($"CopyConstructor:\t{GetHashCode()}");
         }
-        ~Human ()
+        ~Human()
         {
             Console.WriteLine($"HDestructor:\t{GetHashCode()}");
         }
@@ -38,6 +38,12 @@ namespace Academy
         {
             return $"{base.ToString().Split('.').Last()}:".PadRight(12) +
                 $"{LastName.PadRight(16)} {FirstName.PadRight(10)} {Age.ToString().PadRight(5)}";
+        }
+        public virtual string ToStringCSV()
+        {
+            return 
+                this.GetType().ToString().Split('.').Last() + "," 
+                + $"{LastName}, {FirstName}, {Age}";
         }
     }
 }

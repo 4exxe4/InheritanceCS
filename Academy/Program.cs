@@ -2,9 +2,12 @@
 //#define INHERITANCE_2
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Xml.Linq;
 
 namespace Academy
 {
@@ -65,6 +68,18 @@ namespace Academy
                 Console.WriteLine(group[i]);
                 Console.WriteLine(delimiter);
             }
+            Save(group, "group.txt");
+        }
+        static void Save(Human[] group, string filename)
+        {
+            StreamWriter writer = new StreamWriter(filename);
+
+            for (int i = 0;i < group.Length;i++)
+            {
+                writer.WriteLine(group[i].ToStringCSV()); 
+            }
+            writer.Close();
+            System.Diagnostics.Process.Start("notepad", filename);
         }
     }
 }
