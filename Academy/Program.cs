@@ -1,5 +1,6 @@
 ﻿//#define INHERITANCE_1
 //#define INHERITANCE_2
+//#define WRITE_TO_FILE
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Linq;
+using System.Text.RegularExpressions;
 
 namespace Academy
 {
@@ -50,6 +52,8 @@ namespace Academy
             graduate.Info();
 #endif
 
+            Streamer streamer = new Streamer();
+#if WRITE_TO_FILE
             //Base-class pointers: Generalisation (Upcast - приведение дочернего объекта к базовому типу)
             Human[] group =
             {
@@ -68,19 +72,13 @@ namespace Academy
                 Console.WriteLine(group[i]);
                 Console.WriteLine(delimiter);
             }
-            Save(group, "group.txt");
-        }
-        static void Save(Human[] group, string filename)
-        {
-            StreamWriter writer = new StreamWriter(filename);
-
-            for (int i = 0;i < group.Length;i++)
-            {
-                writer.WriteLine(group[i].ToStringCSV()); 
-            }
-            writer.Close();
-            System.Diagnostics.Process.Start("notepad", filename);
-        }
+            streamer.Save(group, "group.txt");
+#endif
+            Human[] group = streamer.Load("group.csv");
+            streamer.Print(group);
+        } 
+       
+       
     }
 }
 
